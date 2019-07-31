@@ -7,7 +7,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/sms', function(req, res, next) {
-  // res.json({"test": "test"});
+  res.json({"test": "test"});
   // console.log(req);
   // console.log(res);
   // res.render('index', { title: 'Express' });
