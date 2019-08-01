@@ -8,8 +8,8 @@ router.get('/', function(req, res, next) {
 
 router.get('/sms', function(req, res, next) {
   console.log(req.query);
-  if (req.query.inboundSMSMessageList) 
-    console.log(req.query.inboundSMSMessageList.inboundSMSMessage[0]);
+  // if (req.query.inboundSMSMessageList) 
+  console.log(req.query.inboundSMSMessageList.inboundSMSMessage[0]);
   res.json({"test": "test"});
   // console.log(req);
   // console.log(res);
