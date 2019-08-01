@@ -9,7 +9,6 @@ router.get('/', function(req, res, next) {
 router.get('/sms', function(req, res, next) {
   console.log(req.query);
   // if (req.query.inboundSMSMessageList) 
-  console.log(req.query.inboundSMSMessageList.inboundSMSMessage[0]);
   res.json({"test": "test"});
   // console.log(req);
   // console.log(res);
@@ -19,6 +18,10 @@ router.get('/sms', function(req, res, next) {
 router.post('/sms', function(req, res, next) {
   // res.json({"test": "test"});
   console.log(req.body);
+  if (req.body.inboundSMSMessageList) {
+    console.log(req.body.inboundSMSMessageList.inboundSMSMessage[0]);
+  } 
+
   // console.log(res);
   // res.render('index', { title: 'Express' });
 });
