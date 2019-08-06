@@ -20,11 +20,9 @@ router.get('/sms', function(req, res, next) {
 
 router.post('/sms', function(req, res, next) {
   // res.json({"test": "test"});
-  console.log(req.body);
   if (req.body.inboundSMSMessageList) {
     // console.log(req.body.inboundSMSMessageList.inboundSMSMessage[0]);
     let data = req.body.inboundSMSMessageList.inboundSMSMessage[0];
-    console.log(data);
     const receivedSms = new Sms({
       date_received: data.dateTime,
       destinationAddress: data.destinationAddress,
@@ -43,14 +41,30 @@ router.post('/sms', function(req, res, next) {
       message: data.message,
       resourceURL: data.resourceURL,
       senderAddress: data.senderAddress 
-    })
+    });
     receivedSmsTest.save().then(sms => res.json(sms)).catch(err => {throw err});
   }
+  
+  res.render('index', { title: 'Express' });
 
-  // console.log(res);
-  // res.render('index', { title: 'Express' });
 });
 
+router.get('/receiver', function(req, res, next) {
+  // console.log('asd')
+  let receivedSms = Sms.find().sort({date_received: -1}).limit(10);
+  let result = [];
+  receivedSms.then(x => {
+    x.forEach((data) => {
+      let returnData = {};
+      returnData.message = data.message;
+      returnData.date_received = data.date_received;
+      returnData.senderAddress = data.senderAddress;
+      result.push(returnData);
+    })
+    receivedSms.then(sms => res.json(result));
+  })
+  
+})
 
 
 module.exports = router;
