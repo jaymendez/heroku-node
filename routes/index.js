@@ -24,6 +24,7 @@ router.post('/sms', function(req, res, next) {
   if (req.body.inboundSMSMessageList) {
     // console.log(req.body.inboundSMSMessageList.inboundSMSMessage[0]);
     let data = req.body.inboundSMSMessageList.inboundSMSMessage[0];
+    console.log(data);
     const receivedSms = new Sms({
       date_received: data.dateTime,
       destinationAddress: data.destinationAddress,
@@ -31,9 +32,20 @@ router.post('/sms', function(req, res, next) {
       message: data.message,
       resourceURL: data.resourceURL,
       senderAddress: data.senderAddress 
+    });
+    receivedSms.save().then(sms => res.json(sms)).catch(err => {throw err});
+  } else {
+    data = req.body;
+    const receivedSmsTest = new Sms({
+      date_received: data.dateTime,
+      destinationAddress: data.destinationAddress,
+      messageId: data.messageId,
+      message: data.message,
+      resourceURL: data.resourceURL,
+      senderAddress: data.senderAddress 
     })
-    receivedSms.save().then(sms => res.json(sms));
-  } 
+    receivedSmsTest.save().then(sms => res.json(sms)).catch(err => {throw err});
+  }
 
   // console.log(res);
   // res.render('index', { title: 'Express' });
