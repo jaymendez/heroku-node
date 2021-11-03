@@ -21,6 +21,6 @@
     "morgan": "~1.9.1",
     "mysql2": "^1.6.5",
     "nodemon": "^1.19.1",
-    "validator": "^11.1.0"
+    "validator": "^13.7.0"
   }
 }
